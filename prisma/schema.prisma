@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+
+model relatorio {
+  id               String  @id @unique(map: "id") @db.VarChar(6)
+  naluno           Int
+  username         String? @db.VarChar(33)
+  nome             String? @db.VarChar(60)
+  aceite_contrato         Int     @default(0)
+  date_aceite_contrato         String? @db.VarChar(60)
+  ip_aceite_contrato         String? @db.VarChar(60)
+  cpf              String? @db.VarChar(17)
+  matricula        rematricula @relation(fields: [naluno], references: [naluno])
+}
+
+model rematricula {
+  aceite_respfinan          Int     @default(0)
+  ip_respfinan       String? @db.VarChar(60)
+  date_respfinan       String? @db.VarChar(60)
+  user_respfinan       String? @db.VarChar(60)
+  parcelamento_cota          Int     @default(0)
+  ip_parcelamento       String? @db.VarChar(60)
+  date_parcelamento       String? @db.VarChar(60)
+  user_parcelamento       String? @db.VarChar(60)  
+  aceite_matricula          Int     @default(0)
+  ip_aceite_matricula       String? @db.VarChar(60)
+  date_aceite_matricula       String? @db.VarChar(60)
+  user_aceite_matricula       String? @db.VarChar(60)
+  regime          Int     @default(0)
+  ip_regime       String? @db.VarChar(60)
+  date_regime       String? @db.VarChar(60)
+  user_regime       String? @db.VarChar(60)
+  relatorio         relatorio[]
+  naluno            Int     @id @unique(map: "naluno")
+  nome              String? @db.VarChar(100)
+  sexo              String? @db.VarChar(15)
+  dnasc             String? @db.VarChar(100)
+  nacionalidade     String? @db.VarChar(20)
+  mnascimento       String? @db.VarChar(14)
+  cpf               String? @db.VarChar(14)
+  rg                String? @db.VarChar(12)
+  rgexp             String? @db.VarChar(15)
+  telal             String? @db.VarChar(20)
+  telpro            String? @db.VarChar(20)
+  celal             String? @db.VarChar(20)
+  emailal           String? @db.VarChar(50)
+  ruaal             String? @db.VarChar(80)
+  ncasaal           String? @db.VarChar(20)
+  complementoal     String? @db.VarChar(100)
+  bairroal          String? @db.VarChar(90)
+  munal             String? @db.VarChar(50)
+  ufal              String? @db.VarChar(2)
+  cepal             String? @db.VarChar(11)
+  anoentrada        Int?
+  anosaida          Int?
+  especial          String? @db.VarChar(100)
+  certidaonasc      String? @db.VarChar(100)
+  livrocert         String? @db.VarChar(100)
+  termocert         Int?
+  folhacert         Int?
+  emissaonasc       String? @db.VarChar(100)
+  formaingresso     Int?
+  nomemae           String? @db.VarChar(100)
+  telmae            String? @db.VarChar(50)
+  telmaeoutro       String? @db.VarChar(50)
+  telpromae         Int?
+  celmae            String? @db.VarChar(50)
+  emailmae          String? @db.VarChar(34)
+  nomepai           String? @db.VarChar(45)
+  telpai            String? @db.VarChar(15)
+  telpaioutro       Int?
+  telpropai         Int?
+  celpai            String? @db.VarChar(15)
+  emailpai          String? @db.VarChar(40)
+  emailresponsaveis String? @db.VarChar(89)
+  nomerespfinan     String? @db.VarChar(100)
+  cpfrespfinan      String? @db.VarChar(50)
+  situmat           String? @db.VarChar(20)
+  unidade           String? @db.VarChar(50)
+  curso             String? @db.VarChar(50)
+  s_rie             String? @db.VarChar(50)
+  turma             String? @db.VarChar(50)
+  nmat              String? @db.VarChar(10)
+  datacancelamento  String? @db.VarChar(25)
+  datamat           String? @db.VarChar(100)
+}
