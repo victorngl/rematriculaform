@@ -1,44 +1,16 @@
 /* eslint-disable react/jsx-key */
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import { Prisma, PrismaClient } from '@prisma/client'
-import { useRouter } from 'next/router'
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import CardForm from './CardForm';
 import RematriculaForm from './RematriculaForm'
 /* Material Tailwind Imports */
-import {
-  Tabs,
-  Chip,
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-  Switch,
-  Button,
-} from "@material-tailwind/react";
-
 
 
 
 export default function Home({ usuario }) {
   const [rematricula, setRematricula] = useState({});
-  const [relatorio, setRelatorio] = useState({});
-  const [rematriculaInfo, SetRematriculaInfo] = useState([{
-    nome: "",
-    email: "",
-    phonenumber: "",
-    aceite: false,
-  }]);
+ 
   /*
   const router = useRouter()
 
@@ -75,7 +47,7 @@ export default function Home({ usuario }) {
             {isEmptyObject(rematricula)?
             <CardForm usuario={usuario} setRematricula={setRematricula} />
             :
-            <RematriculaForm rematricula={rematricula} />}
+            <RematriculaForm rematricula={rematricula} setRematricula={setRematricula} />}
           </div>
         </div>
       </div>

@@ -1,23 +1,13 @@
 
-import React, { Fragment, useEffect, useState } from 'react';
+import React from 'react';
 
 /* Material Tailwind Imports */
 import {
-  Tabs,
   Chip,
   Card,
-  CardHeader,
   CardBody,
   CardFooter,
   Typography,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-  Switch,
   Button,
 } from "@material-tailwind/react";
 
@@ -55,9 +45,18 @@ export default function CardForm({ usuario, setRematricula }) {
             <Card key={user.naluno} className="mb-5 ml-4"  >
               <CardBody className="text-center">
                 <Typography variant="h6" className="mb-4">
-                  {user.aceite_contrato === 0 ? (<Chip value='Aceite pendente' />) : <Chip color='green' value='Aceite realizado' />}
+                  {user.aceite_contrato == 0 ? (<Chip value='Aceite pendente' />) : <Chip color='green' value='Aceite realizado' />}
                 </Typography>
-                Magna proident excepteur nisi nostrud non commodo dolore ut incididunt ea consequat dolor irure velit. Deserunt esse in irure laborum adipisicing ut dolore proident laborum aliquip ipsum sunt sint quis. Quis exercitation non ex consectetur ad. Ad nulla voluptate id pariatur magna qui incididunt.
+                <ul className='mb-5'>
+                  <li className='mb-5'>{user.matricula.nome}</li>
+                  <li>Responsável Financeiro: {user.matricula.nomerespfinan}</li>
+                </ul>
+
+                <ul>
+                  <li className='mb-5'>{user.matricula.aceite_matricula > 0 && 'Aceite de Matricula realizado pelo usuário ' + user.matricula.user_aceite_matricula}</li>
+                  <li className='mb-5'>{user.matricula.parcelamento_cota > 0 && 'Parcelamento optado da cota-parte ' + user.matricula.parcelamento_cota + 'x.'}</li>
+                  <li className='mb-5'>{user.matricula.regime > 0 && 'Regime optado: ' + user.matricula.regime}</li>
+                </ul>
               </CardBody>
               <CardFooter divider className="items-center py-3">
 

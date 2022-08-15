@@ -1,45 +1,16 @@
 
-import React, { Fragment, useState, useEffect } from 'react';
-import { Prisma, PrismaClient } from '@prisma/client'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
-/* Material Tailwind Imports */
-import {
-  Tabs,
-  Chip,
-  Input,
-  Card,
-  Radio,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  Typography,
-  TabsHeader,
-  TabsBody,
-  Tab,
-  TabPanel,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-  Switch,
-  Button,
-} from "@material-tailwind/react";
+export default function RematriculaForm({ rematricula, setRematricula }) {
+  const [AceiteMatricula, setAceiteMatricula] = useState('0');
+  const [RegimeMatricula, setRegimeMatricula] = useState('0');
+  const [ParcelamentoCota, setParcelamentoCota] = useState('0');
+  const [AceiteContrato, setAceiteContrato] = useState(Boolean);
+  const [ip, setIP] = useState('');
+  const router = useRouter()
 
-
-
-export default function RematriculaForm({ rematricula }) {
-  const [aceites, setAceites] = useState({});
-
-  const [aceite_matricula, setAceitesMatricula] = useState({});
-  const [ip_aceite_matricula, setIpAceiteMatricula] = useState('');
-  const [date_aceite_matricula, setDateAceiteMatricula] = useState('');
-
-  const [regime, setRegime] = useState({});
-  const [ip_regime, setIpRegime] = useState('');
-  const [date_regime, setDateRegime] = useState('');
-
-  const [cota_parcelamento, setCotaParcelamento] = useState({});
-  const [ip_cota, setIpAceiteContrato] = useState('');
-  const [date_cota, setDateCota] = useState('');
   // Similar ao componentDidMount e componentDidUpdate:
 
 
@@ -64,9 +35,19 @@ export default function RematriculaForm({ rematricula }) {
     return false
   }
 
+  const getIP  = async () => {
+    const res = await axios.get('https://geolocation-db.com/json/')
+    console.log(res.data);
+    setIP(res.data.IPv4)
+  }
+
+  useEffect( () => {
+    //passing getData method to the lifecycle method
+    getIP()
+  }, [])
 
   function IsEducacaoInfantil(usuario) {
-    if (usuario.matricula.turma == 'Pré-Escola II' ||
+    if (
       usuario.matricula.turma == 'Pré-Escola I' ||
       usuario.matricula.turma == 'Maternal I-A' ||
       usuario.matricula.turma == 'Maternal I-B' ||
@@ -87,9 +68,59 @@ export default function RematriculaForm({ rematricula }) {
     return true;
   }
 
+  function onIntegralValueChange(event) {
+    setRegimeMatricula(event.target.value);
+  }
+
+  function onAceiteMatriculaValueChange(event) {
+    setAceiteMatricula(event.target.value)
+  }
+
+  function onAceiteContratoValueChange(event) {
+    setAceiteContrato(event.target.checked)
+  }
+
+  function onParcelamentoValueChange(event) {
+    setParcelamentoCota(event.target.value)
+  }
+  
+  const handleSubmit = async (event) => {
+    const current = new Date();
+
+    event.preventDefault()
+
+    const data = {
+      matricula: rematricula,
+      aceite_matricula: AceiteMatricula,
+      regime: RegimeMatricula,
+      parcelamento_cota: ParcelamentoCota,
+      aceite_contrato: AceiteContrato,
+      date: current,
+      user_ip: ip,
+    }
+
+    const JSONdata = JSON.stringify(data)
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSONdata,
+    }
+
+    const response = await fetch('/api/save_aceite', options)
+
+    const result = await response.json()
+    
+    setRematricula({})
+
+    router.push(result.relatorio.username)
+  }
+
   return (
     <div className=''>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="relative z-0 mb-6 w-full group">
           <input value={rematricula.matricula.nome} type="name" name="nome" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
           <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome do aluno</label>
@@ -100,38 +131,38 @@ export default function RematriculaForm({ rematricula }) {
         </div>
 
         {rematricula.matricula.aceite_matricula == 0 ?
-          <div>
+          <div onChange={onAceiteMatriculaValueChange}>
             <div className='mb-2'>Deseja realizar a rematrícula para o ano de 2023 ?</div>
-            <fieldset className='flex gap-10 mb-5'>
-              <div className="flex items-center mb-4">
-                <input id="country-option-1" type="radio" name="countries" defaultValue="USA" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+            <fieldset className='flex gap-10 mb-5' >
+              <div className="flex items-center mb-4" >
+                <input required id="country-option-1" type="radio" name="countries" defaultValue="1" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-1" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Sim
                 </label>
               </div>
               <div className="flex items-center mb-4">
-                <input id="country-option-2" type="radio" name="countries" defaultValue="Germany" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input id="country-option-2" type="radio" name="countries" defaultValue="0" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Não
                 </label>
               </div>
             </fieldset>
-          </div> : 
-          
-          <div className='mb-6 text-sm'>Aceite de matricula dado pelo usuário {rematricula.matricula.user_aceite_matricula} {rematricula.matricula.ip_aceite_matricula} em {rematricula.matricula.date_aceite_matricula}.</div> }
+          </div> :
 
-        {IsEducacaoInfantil(rematricula) && rematricula.matricula.regime < 0 ?
-          <div>
+          <div className='mb-6 text-sm'>Aceite de matricula dado pelo usuário {rematricula.matricula.user_aceite_matricula} {rematricula.matricula.ip_aceite_matricula} em {rematricula.matricula.date_aceite_matricula}.</div>}
+
+        {IsEducacaoInfantil(rematricula) && rematricula.matricula.regime == 0 ?
+          <div onChange={onIntegralValueChange}>
             <div className='mb-2'>Opções de turno ?</div>
             <fieldset className='flex gap-10 mb-5'>
               <div className="flex items-center mb-4">
-                <input id="country-option-3" type="radio" name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input required id="country-option-3" type="radio" defaultValue='1' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-1" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Integral
                 </label>
               </div>
               <div className="flex items-center mb-4">
-                <input id="country-option-4" type="radio" name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input id="country-option-4" type="radio" defaultValue='0' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Parcial
                 </label>
@@ -140,8 +171,8 @@ export default function RematriculaForm({ rematricula }) {
           </div> : ''}
 
         {(rematricula.matricula.parcelamento_cota == 0 && IsRespFinan(rematricula) && IsEntranteDeSegmento(rematricula)) ?
-          <div className='mb-5'>
-            <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Escolha uma das opções de parcelamento da cota-parte</label>
+          <div className='mb-5' onChange={onParcelamentoValueChange}>
+            <label required htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Escolha uma das opções de parcelamento da cota-parte</label>
             <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
               <option value="1">1x</option>
@@ -183,19 +214,20 @@ export default function RematriculaForm({ rematricula }) {
 
             </select>
           </div>
-          : '' }
+          : ''}
 
 
         {rematricula.aceite_contrato == 0 ?
-        <fieldset>
-          <div className="flex items-center mb-4">
-            <input id="checkbox-1" type="checkbox" defaultValue className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-            <label htmlFor="checkbox-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Concordo com os termos do contrato de prestação de serviços educacionais <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
-          </div>
+          <div onChange={onAceiteContratoValueChange}>
+            <fieldset>
+              <div className="flex items-center mb-4">
+                <input required id="checkbox-1" type="checkbox" defaultValue className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="checkbox-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Concordo com os termos do contrato de prestação de serviços educacionais <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
+              </div>
 
-        </fieldset>: 
-        
-        <div className='mb-6 text-sm'>Aceite de contrato dado em {rematricula.date_aceite_contrato} sob o IP: {rematricula.ip_aceite_contrato}.</div>}
+            </fieldset></div> :
+
+          <div className='mb-6 text-sm'>Aceite de contrato dado em {rematricula.date_aceite_contrato} sob o IP: {rematricula.ip_aceite_contrato}.</div>}
 
         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar</button>
       </form>
