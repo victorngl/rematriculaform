@@ -110,7 +110,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
     const result = await response.json()
     
-    //setRematricula({})
+    setRematricula({})
 
     router.push(result.relatorio.username)
   }
