@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -37,12 +36,10 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
   const getIP  = async () => {
     const res = await axios.get('https://geolocation-db.com/json/')
-    console.log(res.data);
     setIP(res.data.IPv4)
   }
 
   useEffect( () => {
-    //passing getData method to the lifecycle method
     getIP()
   }, [])
 
@@ -113,10 +110,13 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
     const result = await response.json()
     
-    setRematricula({})
+    //setRematricula({})
 
     router.push(result.relatorio.username)
   }
+
+  if(isEmptyObject(rematricula))
+    return (<h1>Erro desconhecido</h1>)
 
   return (
     <div className=''>

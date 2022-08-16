@@ -57,22 +57,6 @@ export default function Home({ usuario }) {
 
 }
 export async function getServerSideProps(ctx) {
-  // Get all foods in the "food" db
-  /*
-  const res = await fetch('/api/get_info', {
-    body: JSON.stringify({
-      user: ctx.params.slug
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    method: 'POST',
-  });
-
-  const result = await res.json();
-  const usuario = result;
-  */
-
   const prisma = new PrismaClient()
 
   const usuario = await prisma.relatorio.findMany({
