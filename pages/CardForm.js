@@ -40,9 +40,9 @@ export default function CardForm({ usuario, setRematricula }) {
   return (
     <div>
       {!isEmptyObject(usuario) ?
-        <div className='lg:flex md:flex text-center'>
+        <div className='md:flex w-full gap-3 text-center'>
           {usuario.map((user, index) => (
-            <Card key={user.naluno} className="mb-5 ml-4"  >
+            <Card key={user.naluno} className="mb-5"  >
               <CardBody className="text-center">
                 <Typography variant="h6" className="mb-4">
                   {user.aceite_contrato == 0 ? (<Chip value='Aceite pendente' />) : <Chip color='green' value='Aceite realizado' />}

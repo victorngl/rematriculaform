@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import PDFIcon from './PDFIcon';
 
 export default function RematriculaForm({ rematricula, setRematricula }) {
   const [AceiteMatricula, setAceiteMatricula] = useState('0');
@@ -30,16 +31,52 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
       usuario.matricula.turma == 'Pré-Escola II') {
       return true
     }
+  }
+  function GetPretendida(usuario) {
+    if (usuario.matricula.turma == '101' || usuario.matricula.turma == '102') {
+      return '2º Ano'
+    }
+    if (usuario.matricula.turma == '201' || usuario.matricula.turma == '202') {
+      return '3º Ano'
+    }
+    if (usuario.matricula.turma == '301' || usuario.matricula.turma == '302') {
+      return '4º Ano'
+    }
+    if (usuario.matricula.turma == '401' || usuario.matricula.turma == '402') {
+      return '5º Ano'
+    }
+    if (usuario.matricula.turma == '501' || usuario.matricula.turma == '502') {
+      return '6º Ano'
+    }
+    if (usuario.matricula.turma == '601' || usuario.matricula.turma == '602') {
+      return '7º Ano'
+    }
+    if (usuario.matricula.turma == '701' || usuario.matricula.turma == '702') {
+      return '8º Ano'
+    }
+    if (usuario.matricula.turma == '801' || usuario.matricula.turma == '802') {
+      return '9º Ano'
+    }
+    if (usuario.matricula.turma == '901' || usuario.matricula.turma == '902') {
+      return '1º Série'
+    }
+    if (usuario.matricula.turma == '1101' || usuario.matricula.turma == '1102') {
+      return '2º Série'
+    }
+    if (usuario.matricula.turma == '1201' || usuario.matricula.turma == '1202') {
+      return '3º Série'
+    }
 
-    return false
+    return 'Nenhuma série pretendida'
   }
 
-  const getIP  = async () => {
+
+  const getIP = async () => {
     const res = await axios.get('https://geolocation-db.com/json/')
     setIP(res.data.IPv4)
   }
 
-  useEffect( () => {
+  useEffect(() => {
     getIP()
   }, [])
 
@@ -80,7 +117,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   function onParcelamentoValueChange(event) {
     setParcelamentoCota(event.target.value)
   }
-  
+
   const handleSubmit = async (event) => {
     const current = new Date();
 
@@ -109,24 +146,28 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     const response = await fetch('/api/save_aceite', options)
 
     const result = await response.json()
-    
+
     setRematricula({})
 
     router.push(result.relatorio.username)
   }
 
-  if(isEmptyObject(rematricula))
+  if (isEmptyObject(rematricula))
     return (<h1>Erro desconhecido</h1>)
 
   return (
-    <div className=''>
+    <div className='p-5'>
       <form onSubmit={handleSubmit}>
+        <div className='text-sm text-justify mb-6'>Prezado (a) Associado(a), o presente questionário tem como objetivo agilizar o processo
+          de renovação de matrícula do aluno para o ano letivo de 2023. Inicialmente, cumpre informar que a renovação da matrícula será realizada totalmente
+          de forma online.</div>
         <div className="relative z-0 mb-6 w-full group">
           <input value={rematricula.matricula.nome} type="name" name="nome" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
           <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nome do aluno</label>
         </div>
+
         <div className="relative z-0 mb-7 w-full group">
-          <input type="text" name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
+          <input value={GetPretendida(rematricula)} type="text" name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
           <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Série pretendida para 2023</label>
         </div>
 
@@ -141,7 +182,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
                 </label>
               </div>
               <div className="flex items-center mb-4">
-                <input id="country-option-2" type="radio" name="countries" defaultValue="0" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input id="country-option-2" type="radio" name="countries" defaultValue="2" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Não
                 </label>
@@ -162,7 +203,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
                 </label>
               </div>
               <div className="flex items-center mb-4">
-                <input id="country-option-4" type="radio" defaultValue='0' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input id="country-option-4" type="radio" defaultValue='2' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Parcial
                 </label>
@@ -216,6 +257,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
           </div>
           : ''}
 
+        <div className='flex justify-center'><PDFIcon /></div>
 
         {rematricula.aceite_contrato == 0 ?
           <div onChange={onAceiteContratoValueChange}>
@@ -228,7 +270,9 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
             </fieldset></div> :
 
           <div className='mb-6 text-sm'>Aceite de contrato dado em {rematricula.date_aceite_contrato} sob o IP: {rematricula.ip_aceite_contrato}.</div>}
-
+        <div className='text-sm text-justify mb-6'>Em caso de modificação de algum dado cadastral dos responsáveis que
+          assinaram o contrato para o ano de 2022, solicitamos, por gentileza, a sinalização com o
+          encaminhamento dos novos dados para o e-mail: secretaria@cambauba.org.br. <div className='mt-2'>Na hipótese de dúvidas, estaremos à disposição para esclarecimentos através do e-mail: matriculas2023@cambauba.org.br</div></div>
         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar</button>
       </form>
     </div>
