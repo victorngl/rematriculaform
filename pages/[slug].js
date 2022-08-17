@@ -34,7 +34,7 @@ export default function Home({ usuario }) {
     <div style={{
       backgroundImage: 'url(https://cambauba.org.br/wp-content/uploads/2021/10/slide-2.jpg)'
     }}
-      className='bg-cover flex justify-center items-center w-full h-screen'>
+      className='bg-cover flex justify-center items-center w-full'>
       <Head>
         <title>Rematricula - Escola Modelar Cambaúba</title>
         <link rel="icon" href="https://cambauba.org.br/wp-content/uploads/2021/02/cropped-faviconcambauba-150x150.png" sizes="32x32"></link>

@@ -3,10 +3,10 @@ import React from 'react';
 
 
 
-export default function PDFIcon() {
+export default function PDFIcon({link}) {
 
   return (
-
+    <a target='_blank' rel='noreferrer' href={link}>
     <div className="w-64 mb-5 p-3 border-2 border-inherit	bg-white flex items-center border-neutral-400	space-x-7 rounded-lg drop-shadow-md  hover:scale-105 transition transform duration-500 cursor-pointer">
       <div>
         <svg className='h-10 w-10 text-indigo-600' xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 303.188 303.188" style={{ enableBackground: 'new 0 0 303.188 303.188' }} xmlSpace="preserve">
@@ -27,6 +27,7 @@ export default function PDFIcon() {
         <h1 className="w-48 text-sm font-bold text-gray-700 mb-2">Contrato de Serviços</h1>
       </div>
     </div>
+    </a>
 
   )
 }

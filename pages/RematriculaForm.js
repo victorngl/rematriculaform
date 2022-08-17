@@ -11,6 +11,8 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   const [ip, setIP] = useState('');
   const router = useRouter()
 
+
+  const link = 'https://www.google.com'
   // Similar ao componentDidMount e componentDidUpdate:
 
 
@@ -257,14 +259,14 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
           </div>
           : ''}
 
-        <div className='flex justify-center'><PDFIcon /></div>
+        <div className='flex justify-center'><PDFIcon link={link}/></div>
 
         {rematricula.aceite_contrato == 0 ?
           <div onChange={onAceiteContratoValueChange}>
             <fieldset>
               <div className="flex items-center mb-4">
                 <input required id="checkbox-1" type="checkbox" defaultValue className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                <label htmlFor="checkbox-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Concordo com os termos do contrato de prestação de serviços educacionais <a href="#" className="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
+                <label htmlFor="checkbox-1" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Concordo com os termos do <a href={link} target='_blank' rel='noreferrer' className="text-blue-600 hover:underline dark:text-blue-500">contrato de prestação de serviços educacionais</a>.</label>
               </div>
 
             </fieldset></div> :
