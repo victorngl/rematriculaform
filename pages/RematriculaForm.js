@@ -12,7 +12,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   const router = useRouter()
 
 
-  const link = 'https://www.google.com'
+  const link = 'https://cambauba.org.br/wp-content/themes/cambauba/Extrato_do_Regimento_Escolar_2016.pdf'
   // Similar ao componentDidMount e componentDidUpdate:
 
 
@@ -28,8 +28,8 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
     if (usuario.matricula.turma == '901' ||
       usuario.matricula.turma == '902' ||
-      usuario.matricula.turma == '401' ||
-      usuario.matricula.turma == '402' ||
+      usuario.matricula.turma == '501' ||
+      usuario.matricula.turma == '502' ||
       usuario.matricula.turma == 'Pré-Escola II') {
       return true
     }
