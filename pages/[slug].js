@@ -34,21 +34,26 @@ export default function Home({ usuario }) {
     <div style={{
       backgroundImage: 'url(https://cambauba.org.br/wp-content/uploads/2021/10/slide-2.jpg)'
     }}
-      className='bg-cover flex justify-center items-center w-full'>
+      className='bg-cover flex justify-center items-center w-full sm:h-screen'>
       <Head>
         <title>Rematricula - Escola Modelar Cambaúba</title>
         <link rel="icon" href="https://cambauba.org.br/wp-content/uploads/2021/02/cropped-faviconcambauba-150x150.png" sizes="32x32"></link>
       </Head>
 
       <div className="w-11/12">
-        <div className="flex justify-center px-2 my-12">
-          <div className="bg-white p-2 rounded-lg">
-            <h3 className="pt-6 text-2xl text-center mb-6">Rematrícula 2023</h3>
+        <div className="flex justify-center px-2 my-12 font-sans">
+          <div className="bg-white p-2 rounded-lg border-2 shadow-md">
+            <div className='flex pt-6 text-2xl text-center justify-center mb-6'>
+            <img className='w-10 h-10 mr-5' src="https://cdn.nvi.wpensar.com.br/cambauba/logo_carteirinha/ce6c983fbba5132c7f619f32a51707d6a9ae2395.png"/>
+              <h3 className="font-semibold tracking-wide	">Rematrícula Online 2023</h3>
+            </div>
+
             {isEmptyObject(rematricula)?
             <CardForm usuario={usuario} setRematricula={setRematricula} />
             :
             <RematriculaForm rematricula={rematricula} setRematricula={setRematricula} />}
           </div>
+          
         </div>
       </div>
     </div>
