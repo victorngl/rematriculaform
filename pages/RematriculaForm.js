@@ -35,6 +35,21 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     }
   }
   function GetPretendida(usuario) {
+    if (usuario.matricula.turma == 'Berçário II') {
+      return 'Maternal I'
+    }
+    if (usuario.matricula.turma == 'Maternal I-A' || usuario.matricula.turma == 'Maternal I-B') {
+      return 'Maternal II'
+    }
+    if (usuario.matricula.turma == 'Maternal II') {
+      return 'Pré-Escola I'
+    }
+    if (usuario.matricula.turma == 'Pré-Escola I') {
+      return 'Pré-Escola II'
+    }
+    if (usuario.matricula.turma == 'Pré-Escola II') {
+      return '1º Ano'
+    }
     if (usuario.matricula.turma == '101' || usuario.matricula.turma == '102') {
       return '2º Ano'
     }
@@ -133,6 +148,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
       aceite_contrato: AceiteContrato,
       date: current,
       user_ip: ip,
+      pretendida: GetPretendida(rematricula),
     }
 
     const JSONdata = JSON.stringify(data)
@@ -196,7 +212,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
         {IsEducacaoInfantil(rematricula) && rematricula.matricula.regime == 0 ?
           <div onChange={onIntegralValueChange}>
-            <div className='mb-2'>Opções de turno ?</div>
+            <div className='mb-2'>Horários disponíveis: </div>
             <fieldset className='flex gap-10 mb-5'>
               <div className="flex items-center mb-4">
                 <input required id="country-option-3" type="radio" defaultValue='1' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />

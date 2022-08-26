@@ -14,7 +14,6 @@ model relatorio {
   naluno           Int
   username         String? @db.VarChar(33)
   nome             String? @db.VarChar(60)
-  pretendida             String? @db.VarChar(60)
   aceite_contrato         Int     @default(0)
   date_aceite_contrato         String? @db.VarChar(60)
   ip_aceite_contrato         String? @db.VarChar(60)
@@ -23,6 +22,7 @@ model relatorio {
 }
 
 model rematricula {
+  pretendida             String? @db.VarChar(60)
   aceite_respfinan          Int     @default(0)
   ip_respfinan       String? @db.VarChar(60)
   date_respfinan       String? @db.VarChar(60)
