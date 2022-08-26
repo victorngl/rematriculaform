@@ -51,13 +51,13 @@ export default async function handler(req, res) {
   
   if(parseInt(body.aceite_matricula) > 0) {
     dataJson = {...dataJson, aceite_matricula: parseInt(body.aceite_matricula)}
+    dataJson = {...dataJson, pretendida: body.pretendida}
     dataJson = {...dataJson, user_aceite_matricula: body.matricula.username}
     dataJson = {...dataJson, date_aceite_matricula: body.date}
     dataJson = {...dataJson, ip_aceite_matricula: body.user_ip}
 
   }
-
-
+  
   const updateRematricula = await prisma.rematricula.update({
     where: {
       naluno: body.matricula.matricula.naluno,
