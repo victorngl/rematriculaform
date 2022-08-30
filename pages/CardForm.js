@@ -45,7 +45,7 @@ export default function CardForm({ usuario, setRematricula }) {
             <Card key={user.naluno} className="mb-5 shadow-xl border-2">
               <CardBody className="text-left md:h-80 sm:h-80">
                 <Typography variant="h6" className="mb-4 text-center">
-                  {user.aceite_contrato == 0 ? (<Chip value='Aceite pendente' />) : <Chip color='green' value='Aceite realizado' />}
+                  {user.aceite_contrato == 0 ? (<Chip value="Aceite pendente" />) : <Chip color="green" value="Aceite realizado" />}
                 </Typography>
                 <ul className='mb-15 text-center font-bold'>
                   <li className='mb-5'>{user.matricula.nome}</li>
@@ -54,7 +54,7 @@ export default function CardForm({ usuario, setRematricula }) {
                
                 
                 <div className='mt-8 mb-10 text-justify pr-10 pl-10'>
-                  <div className='font-medium'>"A arte da educação deve ser cultivada em todos os aspectos, para se tornar uma ciência construída a partir do conhecimento profundo da natureza humana."</div>
+                  <div className='font-medium'>A arte da educação deve ser cultivada em todos os aspectos, para se tornar uma ciência construída a partir do conhecimento profundo da natureza humana.</div>
                   <div className='mt-2 text-right text-[16px]'>Johann Heinrich Pestalozzi</div>
                 </div>
                 <ul className='mt-12 text-center'>

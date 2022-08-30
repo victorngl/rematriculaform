@@ -12,7 +12,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   const router = useRouter()
 
 
-  const link = 'https://cambauba.org.br/wp-content/themes/cambauba/Extrato_do_Regimento_Escolar_2016.pdf'
+  const link = 'https://cambauba.org.br/matricula_edital_interno/contratos/Contrato%20Renova%C3%A7%C3%A3o%202023%20-%20Wpensar.pdf'
   // Similar ao componentDidMount e componentDidUpdate:
 
 
@@ -223,7 +223,13 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
               <div className="flex items-center mb-4">
                 <input id="country-option-4" type="radio" defaultValue='2' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  Parcial
+                  Parcial (manhã)
+                </label>
+              </div>
+              <div className="flex items-center mb-4">
+                <input id="country-option-4" type="radio" defaultValue='3' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                  Parcial (tarde)
                 </label>
               </div>
             </fieldset>
