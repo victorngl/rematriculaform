@@ -136,10 +136,9 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   }
 
   const handleSubmit = async (event) => {
+    event.preventDefault();
     const current = new Date();
-
-    event.preventDefault()
-
+    
     const data = {
       matricula: rematricula,
       aceite_matricula: AceiteMatricula,
