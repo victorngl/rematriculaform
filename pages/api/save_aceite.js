@@ -44,8 +44,8 @@ export default async function handler(req, res) {
     dataJson = { ...dataJson, ip_parcelamento: body.user_ip }
   }
 
-  if (parseInt(body.regime) > 0) {
-    dataJson = { ...dataJson, regime: parseInt(body.regime) }
+  if (body.regime !== null) {
+    dataJson = { ...dataJson, regime: body.regime }
     dataJson = { ...dataJson, user_regime: body.matricula.username }
     dataJson = { ...dataJson, date_regime: body.date }
     dataJson = { ...dataJson, ip_regime: body.user_ip }

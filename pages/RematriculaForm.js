@@ -5,7 +5,7 @@ import PDFIcon from './PDFIcon';
 
 export default function RematriculaForm({ rematricula, setRematricula }) {
   const [AceiteMatricula, setAceiteMatricula] = useState('0');
-  const [RegimeMatricula, setRegimeMatricula] = useState('0');
+  const [RegimeMatricula, setRegimeMatricula] = useState(null);
   const [ParcelamentoCota, setParcelamentoCota] = useState('0');
   const [AceiteContrato, setAceiteContrato] = useState(Boolean);
   const [ip, setIP] = useState('');
@@ -65,7 +65,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     if (usuario.matricula.turma == '501' || usuario.matricula.turma == '502') {
       return '6º Ano'
     }
-    if (usuario.matricula.turma == '601' || usuario.matricula.turma == '602') {
+    if (usuario.matricula.turma == '601' || usuario.matricula.turma == '602' || usuario.matricula.turma == '603') {
       return '7º Ano'
     }
     if (usuario.matricula.turma == '701' || usuario.matricula.turma == '702') {
@@ -75,13 +75,13 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
       return '9º Ano'
     }
     if (usuario.matricula.turma == '901' || usuario.matricula.turma == '902') {
-      return '1º Série'
+      return '1ª Série'
     }
     if (usuario.matricula.turma == '1101' || usuario.matricula.turma == '1102') {
-      return '2º Série'
+      return '2ª Série'
     }
     if (usuario.matricula.turma == '1201' || usuario.matricula.turma == '1202') {
-      return '3º Série'
+      return '3ª Série'
     }
 
     return 'Nenhuma série pretendida'
@@ -100,6 +100,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   function IsEducacaoInfantil(usuario) {
     if (
       usuario.matricula.turma == 'Pré-Escola I' ||
+      usuario.matricula.turma == 'Maternal I' ||
       usuario.matricula.turma == 'Maternal I-A' ||
       usuario.matricula.turma == 'Maternal I-B' ||
       usuario.matricula.turma == 'Maternal II' ||
@@ -176,7 +177,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     <div className='p-5'>
       <form onSubmit={handleSubmit}>
         <div className='text-sm text-justify mb-6'>Prezado (a) Associado(a), o presente questionário tem como objetivo agilizar o processo
-          de renovação de matrícula do aluno para o ano letivo de 2023. Inicialmente, cumpre informar que a renovação da matrícula será realizada totalmente
+          de renovação de matrícula do aluno para o ano letivo de 2024. Inicialmente, cumpre informar que a renovação da matrícula será realizada totalmente
           de forma online.</div>
         <div className="relative z-0 mb-6 w-full group">
           <input value={rematricula.matricula.nome} type="name" name="nome" id="floating_email" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
@@ -185,12 +186,12 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
         <div className="relative z-0 mb-7 w-full group">
           <input value={GetPretendida(rematricula)} type="text" name="floating_password" id="floating_password" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " disabled />
-          <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Série pretendida para 2023</label>
+          <label htmlFor="floating_password" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Série pretendida para 2024</label>
         </div>
 
         {rematricula.matricula.aceite_matricula == 0 ?
           <div onChange={onAceiteMatriculaValueChange}>
-            <div className='mb-2'>Deseja realizar a rematrícula para o ano de 2023 ?</div>
+            <div className='mb-2'>Deseja realizar a rematrícula para o ano de 2024 ?</div>
             <fieldset className='flex gap-10 mb-5' >
               <div className="flex items-center mb-4" >
                 <input required id="country-option-1" type="radio" name="countries" defaultValue="1" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
@@ -209,24 +210,24 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
           <div className='mb-6 text-sm'>Aceite de matricula dado pelo usuário {rematricula.matricula.user_aceite_matricula} {rematricula.matricula.ip_aceite_matricula} em {rematricula.matricula.date_aceite_matricula}.</div>}
 
-        {IsEducacaoInfantil(rematricula) && rematricula.matricula.regime == 0 ?
+        {IsEducacaoInfantil(rematricula) && rematricula.matricula.regime == null ?
           <div onChange={onIntegralValueChange}>
             <div className='mb-2'>Horários disponíveis: </div>
             <fieldset className='flex gap-10 mb-5'>
               <div className="flex items-center mb-4">
-                <input required id="country-option-3" type="radio" defaultValue='1' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input required id="country-option-3" type="radio" defaultValue='Integral' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-1" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Integral
                 </label>
               </div>
               <div className="flex items-center mb-4">
-                <input id="country-option-4" type="radio" defaultValue='2' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input id="country-option-4" type="radio" defaultValue='Parcial (manhã)' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Parcial (manhã)
                 </label>
               </div>
               <div className="flex items-center mb-4">
-                <input id="country-option-4" type="radio" defaultValue='3' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
+                <input id="country-option-4" type="radio" defaultValue='Parcial (tarde)' name="integral" className="w-4 h-4 border-gray-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-600 dark:focus:bg-blue-600 dark:bg-gray-700 dark:border-gray-600" />
                 <label htmlFor="country-option-2" className="block ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Parcial (tarde)
                 </label>
@@ -294,8 +295,8 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
 
           <div className='mb-6 text-sm'>Aceite de contrato dado em {rematricula.date_aceite_contrato} sob o IP: {rematricula.ip_aceite_contrato}.</div>}
         <div className='text-sm text-justify mb-6'>Em caso de modificação de algum dado cadastral dos responsáveis que
-          assinaram o contrato para o ano de 2022, solicitamos, por gentileza, a sinalização com o
-          encaminhamento dos novos dados para o e-mail: secretaria@cambauba.org.br. <div className='mt-2'>Na hipótese de dúvidas, estaremos à disposição para esclarecimentos através do e-mail: matriculas2023@cambauba.org.br</div></div>
+          assinaram o contrato para o ano de 2023, solicitamos, por gentileza, a sinalização com o
+          encaminhamento dos novos dados para o e-mail: secretaria@cambauba.org.br. <div className='mt-2'>Na hipótese de dúvidas, estaremos à disposição para esclarecimentos através do e-mail: matriculas2024@cambauba.org.br</div></div>
         <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar</button>
       </form>
     </div>
