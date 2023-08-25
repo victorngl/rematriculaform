@@ -12,7 +12,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   const router = useRouter()
 
 
-  const link = 'https://cambauba.org.br/matricula_edital_interno/contratos/Contrato%20Renova%C3%A7%C3%A3o%202023%20-%20Wpensar.pdf'
+  const link = 'https://cambauba.org.br/matricula_edital_interno/contratos/Contrato%20Renova%C3%A7%C3%A3o%202024%20-%20Wpensar.pdf'
   // Similar ao componentDidMount e componentDidUpdate:
 
 
