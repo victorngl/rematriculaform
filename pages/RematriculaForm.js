@@ -38,10 +38,10 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     if (usuario.matricula.turma == 'Berçário II') {
       return 'Maternal I'
     }
-    if (usuario.matricula.turma == 'Maternal I-A' || usuario.matricula.turma == 'Maternal I-B') {
+    if (usuario.matricula.turma == 'Maternal I-A' || usuario.matricula.turma == 'Maternal I-B' || usuario.matricula.turma == 'Maternal I - Manhã' || usuario.matricula.turma == 'Maternal I - Tarde') {
       return 'Maternal II'
     }
-    if (usuario.matricula.turma == 'Maternal II') {
+    if (usuario.matricula.turma == 'Maternal II' || usuario.matricula.turma == 'Maternal II - Manhã' || usuario.matricula.turma == 'Maternal II - Tarde') {
       return 'Pré-Escola I'
     }
     if (usuario.matricula.turma == 'Pré-Escola I') {
@@ -103,6 +103,11 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
       usuario.matricula.turma == 'Maternal I' ||
       usuario.matricula.turma == 'Maternal I-A' ||
       usuario.matricula.turma == 'Maternal I-B' ||
+      usuario.matricula.turma == 'Maternal I - Manhã' ||
+      usuario.matricula.turma == 'Maternal I - Tarde' ||
+      usuario.matricula.turma == 'Maternal II' ||
+      usuario.matricula.turma == 'Maternal II - Manhã' ||
+      usuario.matricula.turma == 'Maternal II - Tarde' ||
       usuario.matricula.turma == 'Maternal II' ||
       usuario.matricula.turma == 'Berçário II') {
       return true
