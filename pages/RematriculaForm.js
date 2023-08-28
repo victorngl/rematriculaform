@@ -6,7 +6,7 @@ import PDFIcon from './PDFIcon';
 export default function RematriculaForm({ rematricula, setRematricula }) {
   const [AceiteMatricula, setAceiteMatricula] = useState('0');
   const [RegimeMatricula, setRegimeMatricula] = useState(null);
-  const [ParcelamentoCota, setParcelamentoCota] = useState('0');
+  const [ParcelamentoCota, setParcelamentoCota] = useState('1');
   const [AceiteContrato, setAceiteContrato] = useState(Boolean);
   const [ip, setIP] = useState('');
   const router = useRouter()
