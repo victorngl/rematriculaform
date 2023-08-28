@@ -1,34 +1,27 @@
 export default function TabelaMatriculas({ alunos, children }) {
     return (
-        <div className="table">
+        <table className="table">
             <thead>
                 <tr>
-                    <th className="text-left p-2 bg-blue-700 text-white">Coluna 1</th>
-                    <th className="text-left p-2 bg-blue-700 text-white">Coluna 2</th>
-                    <th className="text-left p-2 bg-blue-700 text-white">Coluna 3</th>
-                    <th className="text-left p-2 bg-blue-700 text-white">Coluna 4</th>
+                    <th className="text-left p-2 bg-blue-700 text-white">Nome do Aluno</th>
+                    <th className="text-left p-2 bg-blue-700 text-white">Série Pretendida</th>
+                    <th className="text-left p-2 bg-blue-700 text-white">Cota-Parte</th>
+                    <th className="text-left p-2 bg-blue-700 text-white">Regime</th>
+                    <th className="text-left p-2 bg-blue-700 text-white">Financeiro</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td className="p-2">Linha 1</td>
-                    <td className="p-2">Linha 1</td>
-                    <td className="p-2">Linha 1</td>
-                    <td className="p-2">Linha 1</td>
-                </tr>
-                <tr>
-                    <td className="p-2">Linha 2</td>
-                    <td className="p-2">Linha 2</td>
-                    <td className="p-2">Linha 2</td>
-                    <td className="p-2">Linha 2</td>
-                </tr>
-                <tr>
-                    <td className="p-2">Linha 3</td>
-                    <td className="p-2">Linha 3</td>
-                    <td className="p-2">Linha 3</td>
-                    <td className="p-2">Linha 3</td>
-                </tr>
+                {alunos.map((aluno, index) => (
+                    <tr key={index}>
+                        <td className="p-2">{aluno.nome}</td>
+                        <td className="p-2">{aluno.pretendida}</td>
+                        <td className="p-2">{aluno.parcelamento_cota}</td>
+                        <td className="p-2">{aluno.regime}</td>
+                        <td className="p-2">{aluno.pagante}</td>
+                    </tr>
+                ))}
+
             </tbody>
-        </div>
+        </table>
     )
 }
