@@ -35,8 +35,6 @@ export default async function handler(req, res) {
 
   let dataJson = {};
 
-  
-
   if (parseInt(body.parcelamento_cota) > 0) {
     dataJson = { ...dataJson, parcelamento_cota: parseInt(body.parcelamento_cota) }
     dataJson = { ...dataJson, user_parcelamento: body.matricula.username }
