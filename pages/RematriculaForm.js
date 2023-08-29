@@ -6,7 +6,8 @@ import PDFIcon from './PDFIcon';
 export default function RematriculaForm({ rematricula, setRematricula }) {
   const [AceiteMatricula, setAceiteMatricula] = useState('0');
   const [RegimeMatricula, setRegimeMatricula] = useState(null);
-  const [ParcelamentoCota, setParcelamentoCota] = useState('1');
+  const [ParcelamentoCota, setParcelamentoCota] = useState('0');
+  const [error, setError] = useState('');
   const [AceiteContrato, setAceiteContrato] = useState(Boolean);
   const [ip, setIP] = useState('');
   const router = useRouter()
@@ -144,7 +145,12 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const current = new Date();
-    
+
+    if (IsEntranteDeSegmento(rematricula) && parseInt(ParcelamentoCota) === 0) {
+      setError('Selecione o parcelamento da Cota-Parte')
+      return;
+    }
+
     const data = {
       matricula: rematricula,
       aceite_matricula: AceiteMatricula,
@@ -173,6 +179,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     setRematricula({})
 
     router.push(result.relatorio.username)
+
   }
 
   if (isEmptyObject(rematricula))
@@ -241,52 +248,57 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
           </div> : ''}
 
         {(rematricula.matricula.parcelamento_cota == 0 && IsRespFinan(rematricula) && IsEntranteDeSegmento(rematricula)) ?
-          <div className='mb-5' onChange={onParcelamentoValueChange}>
-            <label required htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Escolha uma das opções de parcelamento da cota-parte</label>
-            <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <> {error &&
+            <div className="p-4 bg-red-100 text-red-800">
+              <p>{error}</p>
+            </div> }
+          
+            <div className='mb-5' onChange={onParcelamentoValueChange}>
+              <label required htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Escolha uma das opções de parcelamento da cota-parte</label>
+              <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="0">Selecione</option>
+                <option value="1">1x</option>
+                <option value="2">2x</option>
+                <option value="3">3x</option>
+                <option value="4">4x</option>
+                <option value="5">5x</option>
+                <option value="6">6x</option>
+                <option value="7">7x</option>
+                <option value="8">8x</option>
+                <option value="9">9x</option>
+                <option value="10">10x</option>
+                <option value="11">11x</option>
+                <option value="12">12x</option>
+                <option value="13">13x</option>
+                <option value="14">14x</option>
+                <option value="15">15x</option>
+                <option value="16">16x</option>
+                <option value="17">17x</option>
+                <option value="18">18x</option>
+                <option value="19">19x</option>
+                <option value="20">20x</option>
+                <option value="21">21x</option>
+                <option value="22">22x</option>
+                <option value="23">23x</option>
+                <option value="24">24x</option>
+                <option value="25">25x</option>
+                <option value="26">26x</option>
+                <option value="27">27x</option>
+                <option value="28">28x</option>
+                <option value="29">29x</option>
+                <option value="30">30x</option>
+                <option value="31">31x</option>
+                <option value="32">32x</option>
+                <option value="33">33x</option>
+                <option value="34">34x</option>
+                <option value="35">35x</option>
+                <option value="36">36x</option>
 
-              <option value="1">1x</option>
-              <option value="2">2x</option>
-              <option value="3">3x</option>
-              <option value="4">4x</option>
-              <option value="5">5x</option>
-              <option value="6">6x</option>
-              <option value="7">7x</option>
-              <option value="8">8x</option>
-              <option value="9">9x</option>
-              <option value="10">10x</option>
-              <option value="11">11x</option>
-              <option value="12">12x</option>
-              <option value="13">13x</option>
-              <option value="14">14x</option>
-              <option value="15">15x</option>
-              <option value="16">16x</option>
-              <option value="17">17x</option>
-              <option value="18">18x</option>
-              <option value="19">19x</option>
-              <option value="20">20x</option>
-              <option value="21">21x</option>
-              <option value="22">22x</option>
-              <option value="23">23x</option>
-              <option value="24">24x</option>
-              <option value="25">25x</option>
-              <option value="26">26x</option>
-              <option value="27">27x</option>
-              <option value="28">28x</option>
-              <option value="29">29x</option>
-              <option value="30">30x</option>
-              <option value="31">31x</option>
-              <option value="32">32x</option>
-              <option value="33">33x</option>
-              <option value="34">34x</option>
-              <option value="35">35x</option>
-              <option value="36">36x</option>
-
-            </select>
-          </div>
+              </select>
+            </div> </>
           : ''}
 
-        <div className='flex justify-center'><PDFIcon link={link}/></div>
+        <div className='flex justify-center'><PDFIcon link={link} /></div>
 
         {rematricula.aceite_contrato == 0 ?
           <div onChange={onAceiteContratoValueChange}>
