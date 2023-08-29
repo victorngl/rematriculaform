@@ -247,7 +247,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
             </fieldset>
           </div> : ''}
 
-        {(rematricula.matricula.parcelamento_cota == 0 && IsRespFinan(rematricula) && IsEntranteDeSegmento(rematricula)) ?
+        {(IsRespFinan(rematricula) && IsEntranteDeSegmento(rematricula)) ?
           <> {error &&
             <div className="p-4 bg-red-100 text-red-800">
               <p>{error}</p>
