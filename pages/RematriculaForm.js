@@ -146,7 +146,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
     event.preventDefault();
     const current = new Date();
 
-    if (IsEntranteDeSegmento(rematricula) && parseInt(ParcelamentoCota) === 0) {
+    if (IsEntranteDeSegmento(rematricula) && parseInt(ParcelamentoCota) === 0 && IsRespFinan(rematricula)) {
       setError('Selecione o parcelamento da Cota-Parte')
       return;
     }
