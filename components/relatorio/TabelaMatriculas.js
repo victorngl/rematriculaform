@@ -8,6 +8,7 @@ export default function TabelaMatriculas({ alunos, children }) {
                     <th className="text-left p-2 bg-blue-700 text-white">Cota-Parte</th>
                     <th className="text-left p-2 bg-blue-700 text-white">Regime</th>
                     <th className="text-left p-2 bg-blue-700 text-white">Financeiro</th>
+                    <th className="text-left p-2 bg-blue-700 text-white">Aceites</th>
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +19,11 @@ export default function TabelaMatriculas({ alunos, children }) {
                         <td className="p-2">{aluno.parcelamento_cota}</td>
                         <td className="p-2">{aluno.regime}</td>
                         <td className="p-2">{aluno.pagante}</td>
+                        <td className="p-2">
+                            {aluno.relatorio.map((relatorio, index) => (
+                                <a key={index}>|| {relatorio.nome} {relatorio.aceite_contrato} ||</a>
+                            ))}
+                        </td>
                     </tr>
                 ))}
 
