@@ -57,4 +57,5 @@ model rematricula {
   datacancelamento  String? @db.VarChar(25)
   datamat           String? @db.VarChar(100)
   pagante           String? @db.VarChar(100)
+  alimentacao       String? @db.VarChar(100)
 }

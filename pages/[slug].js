@@ -7,8 +7,6 @@ import { Prisma, PrismaClient } from '@prisma/client'
 
 /* Material Tailwind Imports */
 
-
-
 export default function Home({ usuario }) {
   const [rematricula, setRematricula] = useState({});
 

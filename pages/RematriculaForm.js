@@ -6,6 +6,7 @@ import PDFIcon from './PDFIcon';
 export default function RematriculaForm({ rematricula, setRematricula }) {
   const [AceiteMatricula, setAceiteMatricula] = useState('0');
   const [RegimeMatricula, setRegimeMatricula] = useState(null);
+  const [planoAlimentacao, setPlanoAlimentacao] = useState(null);
   const [ParcelamentoCota, setParcelamentoCota] = useState('0');
   const [error, setError] = useState('');
   const [AceiteContrato, setAceiteContrato] = useState(Boolean);
@@ -160,6 +161,7 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
       date: current,
       user_ip: ip,
       pretendida: GetPretendida(rematricula),
+      alimentacao: planoAlimentacao,
     }
 
     const JSONdata = JSON.stringify(data)
@@ -247,12 +249,32 @@ export default function RematriculaForm({ rematricula, setRematricula }) {
             </fieldset>
           </div> : ''}
 
+        {IsEducacaoInfantil(rematricula) && RegimeMatricula == 'Integral' ?
+          <div onChange={(e) => { setPlanoAlimentacao(e.target.value); console.log(e.target.value) }}>
+            <div className='mb-2'>Planos de Alimentação disponíveis: </div>
+            <div className=''>
+              <img src='alimentacao.jpg' />
+            </div>
+            <fieldset className='flex gap-10 mb-5'>
+            <div className='my-5'>Escolha o plano desejado: </div>
+              <select id="escolha-frutas" name="fruta">
+                <option value="Nenhum">Não desejo contratar plano de alimentação</option>
+                <option value="Plano Integral Completo">Plano Integral Completo</option>
+                <option value="Plano Café da Manhã + Almoço">Plano Café da Manhã + Almoço</option>
+                <option value="Plano Almoço + Lanche da Tard">Plano Almoço + Lanche da Tarde</option>
+                <option value="Plano Almoço">Plano Almoço</option>
+                <option value="Plano Café da Manhã">Plano Café da Manhã</option>
+                <option value="Plano Lanche da Tarde">Plano Lanche da Tarde</option>
+              </select>
+            </fieldset>
+          </div> : ''}
+
         {(IsRespFinan(rematricula) && IsEntranteDeSegmento(rematricula)) ?
           <> {error &&
             <div className="p-4 bg-red-100 text-red-800">
               <p>{error}</p>
-            </div> }
-          
+            </div>}
+
             <div className='mb-5' onChange={onParcelamentoValueChange}>
               <label required htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Escolha uma das opções de parcelamento da cota-parte</label>
               <select id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
